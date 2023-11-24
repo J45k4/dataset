@@ -116,13 +116,13 @@ pub struct Mnist {
 impl Mnist {
     pub async fn load() -> anyhow::Result<Self> {
         download_file("http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz", "./datasets/train-images-idx3-ubyte.gz").await?;
-        decompress_file("./datasets/train-images-idx3-ubyte.gz","./datasets/train-images-idx3-ubyte")?;
+        decompress_file("./datasets/train-images-idx3-ubyte.gz","./datasets/train-images-idx3-ubyte").await?;
         download_file("http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz", "./datasets/train-labels-idx1-ubyte.gz").await?;
-        decompress_file("./datasets/train-labels-idx1-ubyte.gz", "./datasets/train-labels-idx1-ubyte")?;
+        decompress_file("./datasets/train-labels-idx1-ubyte.gz", "./datasets/train-labels-idx1-ubyte").await?;
         download_file("http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz", "./datasets/t10k-images-idx3-ubyte.gz").await?;
-        decompress_file("./datasets/t10k-images-idx3-ubyte.gz", "./datasets/t10k-images-idx3-ubyte")?;
+        decompress_file("./datasets/t10k-images-idx3-ubyte.gz", "./datasets/t10k-images-idx3-ubyte").await?;
         download_file("http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz", "./datasets/t10k-labels-idx1-ubyte.gz").await?;
-        decompress_file("./datasets/t10k-labels-idx1-ubyte.gz", "./datasets/t10k-labels-idx1-ubyte")?;
+        decompress_file("./datasets/t10k-labels-idx1-ubyte.gz", "./datasets/t10k-labels-idx1-ubyte").await?;
 
         Ok(Self {
             train_images: MnistImages::from_ubyte("./datasets/train-images-idx3-ubyte").await,

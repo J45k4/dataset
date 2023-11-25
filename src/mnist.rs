@@ -41,6 +41,23 @@ impl MNistLabels {
         Some(self.data[8 + index as usize])
     }
 
+    pub fn get_batch(&self, index: u32, batch_size: u32) -> Option<&[u8]> {
+        if index >= self.count {
+            return None;
+        }
+
+        let start = 8 + (index * batch_size) as usize;
+        let end = start + batch_size as usize;
+
+        if end > self.data.len() {
+            log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());
+
+            return None;
+        }
+
+        Some(&self.data[start..end])
+    }
+
     pub fn increment(&mut self) {
         self.index += 1;
     }
@@ -95,6 +112,23 @@ impl MnistImages {
 
         let start = 16 + (index * self.width * self.height) as usize;
         let end = start + (self.width * self.height) as usize;
+
+        if end > self.data.len() {
+            log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());
+
+            return None;
+        }
+
+        Some(&self.data[start..end])
+    }
+
+    pub fn get_batch(&self, index: u32, batch_size: u32) -> Option<&[u8]> {
+        if index >= self.count {
+            return None;
+        }
+
+        let start = 16 + (index * batch_size * self.width * self.height) as usize;
+        let end = start + (batch_size * self.width * self.height) as usize;
 
         if end > self.data.len() {
             log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());

@@ -109,7 +109,7 @@ impl MnistImages {
         }
 
         let start = 16 + (index * self.width * self.height) as usize;
-        let mut end = start + (self.width * self.height) as usize;
+        let end = start + (self.width * self.height) as usize;
 
         if end > self.data.len() {
             log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());

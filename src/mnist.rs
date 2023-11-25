@@ -47,12 +47,10 @@ impl MNistLabels {
         }
 
         let start = 8 + (index * batch_size) as usize;
-        let end = start + batch_size as usize;
+        let mut end = start + batch_size as usize;
 
         if end > self.data.len() {
-            log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());
-
-            return None;
+            end = self.data.len();
         }
 
         Some(&self.data[start..end])
@@ -111,7 +109,7 @@ impl MnistImages {
         }
 
         let start = 16 + (index * self.width * self.height) as usize;
-        let end = start + (self.width * self.height) as usize;
+        let mut end = start + (self.width * self.height) as usize;
 
         if end > self.data.len() {
             log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());
@@ -128,12 +126,10 @@ impl MnistImages {
         }
 
         let start = 16 + (index * batch_size * self.width * self.height) as usize;
-        let end = start + (batch_size * self.width * self.height) as usize;
+        let mut end = start + (batch_size * self.width * self.height) as usize;
 
         if end > self.data.len() {
-            log::error!("index: {} start: {} end: {} > data.len(): {}", index, start, end, self.data.len());
-
-            return None;
+            end = self.data.len();
         }
 
         Some(&self.data[start..end])

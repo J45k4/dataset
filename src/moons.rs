@@ -3,8 +3,13 @@ use std::f64::consts::PI;
 use rand::distributions::Distribution;
 use rand::distributions::Uniform;
 
+pub struct Point {
+    pub x: f64,
+    pub y: f64,
+}
+
 pub struct MoonsDataset {
-    pub points: Vec<(f64, f64)>,
+    pub points: Vec<Point>,
     pub labels: Vec<i32>,
 }
 
@@ -23,15 +28,20 @@ pub fn generate_moons(n_samples: usize, noise: f64) -> MoonsDataset {
 
         if i % 2 == 0 {
             // First moon
-            let x = angle.sin() + dx;
-            let y = angle.cos() + dy;
-            moons.points.push((x, y));
+            let point = Point {
+                x: angle.sin() + dx,
+                y: angle.cos() + dy,
+            };
+            moons.points.push(point);
             moons.labels.push(0);
         } else {
             // Second moon
-            let x = (1.0 + angle).sin() + dx;
-            let y = (1.0 - angle).cos() + dy;
-            moons.points.push((x, y));
+            // moons.points.push((x, y));
+            let point = Point {
+                x: (1.0 + angle).sin() + dx,
+                y: (1.0 - angle).cos() + dy,
+            };
+            moons.points.push(point);
             moons.labels.push(1);
         }
     }
